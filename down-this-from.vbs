@@ -6,6 +6,7 @@ Dim oFile: Set oFile = oFSO.OpenTextFile("id.txt", ForReading)
 
 Do While oFile.AtEndOfStream = False
 
-	MsgBox oFile.ReadLine
+	Dim fileName: fileName = oFile.ReadLine & ".jpg"
+	MsgBox fileName
 	
 Loop
