@@ -11,7 +11,13 @@ Do While oFile.AtEndOfStream = False
 	oXMLHTTP.open "GET", "http://www.camara.leg.br/internet/deputado/bandep/" & fileName, False
 	oXMLHTTP.send
 	If oXMLHTTP.status = 200 Then
-		
+		Dim oStream: Set oStream = CreateObject("ADODB.Stream")
+		oStream.Open
+		oStream.Type = 1
+		oStream.Write oXMLHTTP.responseBody
+		oStream.SaveToFile "img\" & fileName
+		oStream.Close	
+		Set oStream = Nothing
 	End If
 	Set oXMLHTTP = Nothing
 	
