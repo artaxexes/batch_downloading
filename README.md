@@ -1,2 +1,3 @@
 # down-this-from
-http://www.camara.leg.br/internet/deputado/bandep/#{number}.jpg
+
+Read info.txt to determine the first part of the download link and the part which be changed every request.
