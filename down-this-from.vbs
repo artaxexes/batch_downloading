@@ -1,24 +1,26 @@
 Option Explicit
 
 Const ForReading = 1
-Dim oFSO: Set oFSO = CreateObject("Scripting.FileSystemObject")
-Dim oFile: Set oFile = oFSO.OpenTextFile("id.txt", ForReading)
+Const TristateTrue = 1
 
-Do While oFile.AtEndOfStream = False
+Dim fso: Set fso = CreateObject("Scripting.FileSystemObject")
+Dim txtFile: Set txtFile = fso.OpenTextFile("info2.txt", ForReading, TristateTrue)
 
-	Dim fileName: fileName = oFile.ReadLine & ".jpg"
-	Dim oXMLHTTP: Set oXMLHTTP = CreateObject("MSXML2.XMLHTTP.3.0")
-	oXMLHTTP.open "GET", "http://www.camara.leg.br/internet/deputado/bandep/" & fileName, False
-	oXMLHTTP.send
-	If oXMLHTTP.status = 200 Then
-		Dim oStream: Set oStream = CreateObject("ADODB.Stream")
-		oStream.Open
-		oStream.Type = 1
-		oStream.Write oXMLHTTP.responseBody
-		oStream.SaveToFile "img\" & fileName
-		oStream.Close	
-		Set oStream = Nothing
+Do While txtFile.AtEndOfStream = False
+
+	Dim id: id = txtFile.ReadLine
+	Dim xmlHttp : Set xmlHttp = CreateObject("MSXML2.XMLHTTP.3.0")
+	xmlHttp.open "GET", "http://www.camara.leg.br/internet/deputado/bandep/" & id, False
+	xmlHttp.send
+	If xmlHttp.status = 200 Then
+		Dim stream: Set stream = CreateObject("ADODB.Stream")
+		stream.Open
+		stream.Type = 1
+		stream.Write xmlHttp.responseBody
+		stream.SaveToFile "img\" & id
+		stream.Close
+		Set stream = Nothing
 	End If
-	Set oXMLHTTP = Nothing
+	Set xmlHttp = Nothing
 	
 Loop
