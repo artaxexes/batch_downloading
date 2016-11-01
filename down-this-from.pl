@@ -25,6 +25,8 @@ while (<$handle>) {
   }
 }
 
+close($handle) || warn;
+
 for my $img (@imgs) {
   my $path = "img/" . $img;
   my $link = $uri . $img;
