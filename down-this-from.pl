@@ -7,7 +7,7 @@ use warnings;
 use open qw< :encoding(UTF-8) >;
 use LWP::Simple;
 
-my $filename = "id.txt";
+my $filename = "info.txt";
 my $handle = undef;
 
 open($handle, "<", $filename)  || die;
@@ -26,7 +26,7 @@ while (<$handle>) {
 }
 
 for my $img (@imgs) {
-  my $path = "imgs/" . $img;
+  my $path = "img/" . $img;
   my $link = $uri . $img;
   getstore($link, $path);
 }
