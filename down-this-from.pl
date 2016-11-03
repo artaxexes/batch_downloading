@@ -25,10 +25,21 @@ while (<$handle>) {
   }
 }
 
-close($handle) || warn;
+close($handle) || warn $_[0];
 
 for my $img (@imgs) {
-  my $path = "img/" . $img;
-  my $link = $uri . $img;
-  getstore($link, $path);
+  #my $path = "img/" . $img;
+  #my $link = $uri . $img;
+  down_this($uri . $img, "img/" . $img);
+}
+
+sub down_this {
+  my ($url, $path) = @_;
+  getstore($url, $path) if check_this($url);
+}
+
+sub check_this {
+  my @response = head(shift(@_));
+  return 1 if @response and $response[0] eq "image/jpeg";
+  return 0;
 }
