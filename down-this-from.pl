@@ -12,7 +12,7 @@ my $handle = undef;
 
 open($handle, "<", $filename)  || die;
 
-my $img_regex = "([0-9]{4,6}\.jpg)";
+my $img_regex = "([0-9]{1,6}\.jpg)";
 my @imgs = ();
 my $uri_regex = "(^https?://.*)";
 my $uri;
