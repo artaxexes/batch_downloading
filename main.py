@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -7,27 +7,35 @@ import json
 import downthefile
 
 def mkdir():
-    now = '{0:%Y}.{0:%m}.{0:%d}.{0:%H}h{0:%M}m{0:%S}s'.format(datetime.datetime.now())
+    now = 'downloaded_{0:%Y}{0:%m}{0:%d}_{0:%H}{0:%M}{0:%S}'.format(datetime.datetime.now())
     try:
+        print('Creating folder...')
         os.mkdir(now)
     except FileExistsError:
         pass
     except:
-        print("unexpected error")
+        print('Error: can not create folder')
         raise
     return now + '/'
 
-def scan(path, filename):
+def scan(filename):
     try:
+        print('Reading ' + filename + '...')
         f = open(filename)
     except:
+        print('Error: can not open ' + filename)
         pass
     else:
+        path = mkdir()
         handler = json.load(f)
+        print('Downloading files...')
         for i in handler['files']:
              itm = downthefile.ThisFile(handler['mime_type'], i, handler['main_url'])
              itm.down(path)
         f.close()
+    return
 
-if __name__ == "__main__":
-    scan(mkdir(), 'info.json')
+if __name__ == '__main__':
+    print('Initializing...')
+    scan('info.json')
+    print('Done')
