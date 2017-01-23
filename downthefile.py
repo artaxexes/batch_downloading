@@ -4,15 +4,15 @@ import urllib.request
 
 class ThisFile():
     def __init__(self, mime, filename, url):
-        self.mime = mime
-        self.filename = filename
-        self.url = url + filename
+        self.__mime = mime
+        self.__filename = filename
+        self.__url = url + filename
 
-    def check(self):
-        opened = urllib.request.urlopen(self.url)
+    def __check(self):
+        opened = urllib.request.urlopen(self.__url)
         return opened.info().__getitem__('Content-Type')
 
     def down(self, folder):
-        path = folder + self.filename
-        if self.check() == self.mime:
-            urllib.request.urlretrieve(self.url, path)
+        path = folder + self.__filename
+        if self.__check() == self.__mime:
+            urllib.request.urlretrieve(self.__url, path)
