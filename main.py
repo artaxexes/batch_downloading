@@ -26,8 +26,11 @@ def scan(filename):
         print('Error: can not open ' + filename)
         pass
     else:
-        path = mkdir()
         handler = json.load(f)
+        if handler['main_url'] == '' or handler['mime_type'] == '' or len(handler['files']) <= 0:
+            print('Fill empty fields before start')
+            raise
+        path = mkdir()
         print('Downloading files...')
         for i in handler['files']:
              itm = downthefile.ThisFile(handler['mime_type'], i, handler['main_url'])
