@@ -14,5 +14,7 @@ class ThisFile():
 
     def down(self, folder):
         path = folder + self.__filename
-        if self.__check() == self.__mime:
-            urllib.request.urlretrieve(self.__url, path)
+        if self.__check() != self.__mime:
+            print(self.__url + ' contains wrong mime type')
+            return
+        urllib.request.urlretrieve(self.__url, path)
