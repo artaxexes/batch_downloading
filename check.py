@@ -19,7 +19,7 @@ def file_content(filename):
   else:
     handler = json.load(f)
     f.close()
-  return handler['files']
+  return sorted(handler['files'])
 
 def compare(lines, files):
   not_downloaded = []
