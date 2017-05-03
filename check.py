@@ -8,7 +8,7 @@ def last_dir(path):
   dirs = []
   for entry in os.scandir(path):
     if entry.name.startswith('downloaded_') and entry.is_dir():
-      dirs.append(entry.name[11:len(entry.name)])
+      dirs.append(entry.name)
   return max(dirs)
 
 def file_content(filename):
