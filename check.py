@@ -26,9 +26,9 @@ def compare(lines, files):
   for line in lines:
     if line not in files:
       not_downloaded.append(line)
-  return len(not_downloaded)
+  return str(len(not_downloaded))
 
 if __name__ == '__main__':
   lines = file_content('info.json')
-  files = os.listdir('downloaded_' + last_dir(os.getcwd()))
-  print(str(compare(lines, files)) + ' not downloaded')
+  files = os.listdir(last_dir(os.getcwd()))
+  print(compare(lines, files) + ' not downloaded')
